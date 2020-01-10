@@ -15,6 +15,7 @@ This assignment a train schedule application was created incorporating Firebase 
        3. Users from several machines can view the same train information.
    
 ### ***Deployed Link*** https://chelsea4crooke.github.io/TrainSchedule/
+Firebase: https://console.firebase.google.com/u/0/project/train-times-1711f/overview
 
 ### ***Technology Used***
 
