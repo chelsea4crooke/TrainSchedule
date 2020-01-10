@@ -13,50 +13,50 @@ const firebaseConfig = {
  
  var database = firebase.database();
 
- var trainName;
- var destination;
- var frequency = 0;
- var minutesAway = 0;
- var firstTrain = 0;
- var nextArrival = 0;
+ var tName;
+ var dest;
+ var freq = 0;
+ var mAway = 0;
+ var trainOne = 0;
+ var nextTrain = 0;
 
-  $("#add-train-btn").on("click", function(event) {
+  $("#addBtn").on("click", function(event) {
     event.preventDefault();
   
-    trainName = $("#train-name-input").val().trim();
-    destination = $("#destination-input").val().trim();
-    firstTrain = $("#first-train-input").val().trim();
-    frequency = $("#frequency-input").val().trim();
+    tName = $("#inputTrain").val().trim();
+    dest = $("#destTrain").val().trim();
+    trainOne = $("#oneInput").val().trim();
+    freq = $("#frequency").val().trim();
   
     database.ref().push({
-      trainName: trainName,
-      destination: destination,
-      firstTrain: firstTrain,
-      frequency: frequency,
-      nextArrival: nextArrival,
+      tName: tName,
+      dest: dest,
+      trainOne: trainOne,
+      freq: freq,
+      nextTrain: nextTrain,
     });
 
-    trainName = $("#train-name-input").val("");
-    destination = $("destination-input").val("");
-    firstTrain = $("#first-train-input").val("");
-    frequency = $("#frequency-input").val("");
+    tName = $("#inputTrain").val("");
+    dest = $("destTrain").val("");
+    trainOne = $("#oneInput").val("");
+    freq = $("#frequency").val("");
   });
 
   database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
 
-    var firstTrainConv = moment(childSnapshot.val().firstTrain, "hh:mm").subtract(1, "years");
+    var firstTrainConv = moment(childSnapshot.val().trainOne, "hh:mm").subtract(1, "years");
     var timeDifference = moment().diff(moment(firstTrainConv), "minutes");
-    var timeRemain = timeDifference % childSnapshot.val().frequency;
-    var minutesAway = childSnapshot.val().frequency - timeRemain;
-    var nextArrival = moment().add(minutesAway, "minutes");
-    nextArrival = moment(nextArrival).format("hh:mm");
-    var firebaseName = childSnapshot.val().trainName;
-    var firebaseDest = childSnapshot.val().destination;
-    var firebaseFreq = childSnapshot.val().frequency;
+    var timeRemain = timeDifference % childSnapshot.val().freq;
+    var mAway = childSnapshot.val().freq - timeRemain;
+    var nextTrain = moment().add(mAway, "minutes");
+    nextTrain = moment(nextTrain).format("hh:mm");
+    var firebaseName = childSnapshot.val().tName;
+    var firebaseDest = childSnapshot.val().dest;
+    var firebaseFreq = childSnapshot.val().freq;
 
     // user input janx
-    $("#train-table > tbody").append("<tr><td>" + firebaseName + "</td><td>" + firebaseDest + "</td><td>" + firebaseFreq + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
+    $("#tTable > tbody").append("<tr><td>" + firebaseName + "</td><td>" + firebaseDest + "</td><td>" + firebaseFreq + "</td><td>" + nextTrain + "</td><td>" + mAway + "</td></tr>");
   
   }, function(errorObj){
     console.log("errors handled: " + errorObj.code);

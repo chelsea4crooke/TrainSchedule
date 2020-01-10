@@ -6,7 +6,7 @@ body{
     font-family: 'Old Standard TT', serif;
     color: #2C302E;
 }
-.headBox , #hBox{
+.headBox , #schedBox, #addBox{
     background: #8D9F87;
     font-weight: bolder;
 }
